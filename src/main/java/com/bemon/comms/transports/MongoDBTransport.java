@@ -10,7 +10,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class MongoDBTransport implements ITransport<Map<String, MongoDatabase>> {
+public class MongoDBTransport implements ITransport<MongoDatabase> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MongoDBTransport.class);
 
@@ -19,7 +19,7 @@ public class MongoDBTransport implements ITransport<Map<String, MongoDatabase>> 
 
     MongoClient mongoClient;
 
-    Map<String, MongoDatabase> transport;
+    MongoDatabase transport;
 
     @Override
     public void setProperties (Properties properties){
@@ -36,11 +36,7 @@ public class MongoDBTransport implements ITransport<Map<String, MongoDatabase>> 
         mongoClient = new MongoClient(IntStream.range(0,ips.length)
                 .mapToObj(i->new ServerAddress(ips[i], new Integer(ports[i])))
                 .collect(Collectors.toList()));
-        LOGGER.debug("Loading DBs");
-        transport = Arrays.asList(properties.getProperty("mongodb.rs.databases").split(",")).
-                stream().
-                collect(Collectors.toConcurrentMap(p->p,p->mongoClient.getDatabase(p)));
-        LOGGER.info("DBs loaded - {}", transport.keySet());
+        transport = mongoClient.getDatabase(properties.getProperty("mongodb.rs.database"));
     }
 
     @Override
@@ -49,7 +45,7 @@ public class MongoDBTransport implements ITransport<Map<String, MongoDatabase>> 
     }
 
     @Override
-    public Map<String, MongoDatabase> getTransport(){
+    public MongoDatabase getTransport(){
         return transport;
     }
 

@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -22,8 +23,7 @@ public class ConfigLoader {
     private MongoDBStore mongoDBStore;
     private HazelcastStore hazelcastStore;
 
-    private static final String CONFIG_DB = "configdb";
-    private static final String CONFIG_COLLECTION = "configcollection";
+    private static final String CONFIG_STORE = "configstore";
 
     private static final String PACKAGE = "_package";
 
@@ -54,29 +54,17 @@ public class ConfigLoader {
     public void loadTransports(MongoDBTransport mongoDBTransport,
                                HazelcastTransport hazelcastTransport){
         this.mongoDBStore = new MongoDBStore();
-        mongoDBStore.loadTransport(mongoDBTransport);
+        mongoDBStore.load(mongoDBTransport, System.getProperty(CONFIG_STORE));
         this.hazelcastStore = new HazelcastStore();
-        hazelcastStore.loadTransport(hazelcastTransport);
+        hazelcastStore.load(hazelcastTransport, System.getProperty(CONFIG_STORE));
     }
 
 
     public void loadConfiguration(){
-        List<Document> list = mongoDBStore.get(System.getProperty(CONFIG_DB) +","+
-                System.getProperty(CONFIG_COLLECTION));
+        Collection<Document> list = mongoDBStore.getAll();
 
-        list.stream().forEach(p-> processItem(p));
+        list.stream().forEach(p-> hazelcastStore.put(p.get(PACKAGE).toString(),p));
 
-    }
-
-    void processItem(Document document){
-        LOGGER.debug("Loading package {}", document.get(PACKAGE));
-
-        Map<String, Object> map = hazelcastStore.get(document.get(PACKAGE).toString());
-
-        for (Map.Entry entry:
-             document.entrySet()) {
-            map.put(entry.getKey().toString(), entry.getValue());
-        }
     }
 
     public static void loadConfig(String filename) throws IOException {
