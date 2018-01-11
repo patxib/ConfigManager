@@ -1,4 +1,4 @@
-package com.bemon.comms.transports;
+package com.bemon.comms.connections;
 
 import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
@@ -10,16 +10,16 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class MongoDBTransport implements ITransport<MongoDatabase> {
+public class MongoDBConnection implements IConnection<MongoDatabase> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MongoDBTransport.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MongoDBConnection.class);
 
 
     Properties properties;
 
     MongoClient mongoClient;
 
-    MongoDatabase transport;
+    MongoDatabase connection;
 
     @Override
     public void setProperties (Properties properties){
@@ -31,12 +31,11 @@ public class MongoDBTransport implements ITransport<MongoDatabase> {
         String[] ips = properties.getProperty("mongodb.rs.ips").split(",");
         String[] ports = properties.getProperty("mongodb.rs.ports").split(",");
         if(ips.length==0||ips.length!=ports.length) throw new RuntimeException("Invalid configuration");
-        List<ServerAddress> servers =new ArrayList<>();
 
         mongoClient = new MongoClient(IntStream.range(0,ips.length)
                 .mapToObj(i->new ServerAddress(ips[i], new Integer(ports[i])))
                 .collect(Collectors.toList()));
-        transport = mongoClient.getDatabase(properties.getProperty("mongodb.rs.database"));
+        connection = mongoClient.getDatabase(properties.getProperty("mongodb.rs.database"));
     }
 
     @Override
@@ -45,8 +44,8 @@ public class MongoDBTransport implements ITransport<MongoDatabase> {
     }
 
     @Override
-    public MongoDatabase getTransport(){
-        return transport;
+    public MongoDatabase getConnection(){
+        return connection;
     }
 
 

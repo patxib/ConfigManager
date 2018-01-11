@@ -1,5 +1,5 @@
 package com.bemon.comms.listeners;
 
-public interface IListener<V> {
-    void onOscillate(String action, V oldParticle, V newParticle );
+public interface IListener<T> {
+    void onEvent(String event, T oldEntry, T newEntry);
 }
