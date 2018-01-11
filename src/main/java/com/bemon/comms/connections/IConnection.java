@@ -1,8 +1,8 @@
-package com.bemon.comms.transports;
+package com.bemon.comms.connections;
 
 import java.util.Properties;
 
-public interface ITransport<V> {
+public interface IConnection<V> {
 
     void setProperties(Properties properties);
 
@@ -10,6 +10,6 @@ public interface ITransport<V> {
 
     void stop();
 
-    V getTransport();
+    V getConnection();
 
 }

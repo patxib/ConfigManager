@@ -1,4 +1,4 @@
-package com.bemon.comms.transports;
+package com.bemon.comms.connections;
 
 
 import com.hazelcast.config.Config;
@@ -9,14 +9,14 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Properties;
 
-public class HazelcastTransport implements ITransport<HazelcastInstance> {
+public class HazelcastConnection implements IConnection<HazelcastInstance> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(HazelcastTransport.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(HazelcastConnection.class);
 
 
     Properties properties;
 
-    HazelcastInstance transport;
+    HazelcastInstance connection;
 
     @Override
     public void setProperties (Properties properties){
@@ -26,19 +26,19 @@ public class HazelcastTransport implements ITransport<HazelcastInstance> {
     @Override
     public void start(){
         Config cfg = new Config();
-        transport = Hazelcast.newHazelcastInstance(cfg);
+        connection = Hazelcast.newHazelcastInstance(cfg);
     }
 
     @Override
     public void stop(){
-        if (transport != null){
-            transport.shutdown();
+        if (connection != null){
+            connection.shutdown();
         }
     }
 
     @Override
-    public HazelcastInstance getTransport(){
-        return transport;
+    public HazelcastInstance getConnection(){
+        return connection;
     }
 
 }
