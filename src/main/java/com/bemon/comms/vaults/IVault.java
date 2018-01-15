@@ -1,12 +1,14 @@
 package com.bemon.comms.vaults;
 
+import com.bemon.common.model.IParser;
 import com.bemon.comms.connections.IConnection;
 import com.bemon.comms.listeners.IListener;
 
 import java.util.Collection;
-import java.util.Map;
 
-public interface IVault<T> {
+public interface IVault<T,K> {
+
+    void load(IConnection iConnection, IParser parser, String storeName);
 
     void load(IConnection iConnection, String storeName);
 
@@ -18,6 +20,5 @@ public interface IVault<T> {
 
     void put(String key, T entry);
 
-    void put(Map<String, T> map);
-
+    void update(T key, T value);
 }

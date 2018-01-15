@@ -1,0 +1,17 @@
+{
+  "_id" : ObjectId("5a57e209e5d07afc304d3e32"),
+  "_package" : "com.bemon.common.config.Data",
+  "_type" : "com.bemon.common.model.Map",
+  "_content" : {
+    "Double" : 65.0, //java.lang.Double
+    "String" : "String", //java.lang.String
+    "Date" : ISODate("2018-12-24T00:00:00.000Z"), //java.util.Date
+    "Boolean" : true, //java.lang.Boolean
+    "Int32" : 23, //java.lang.Integer
+    "Int62" : NumberLong(45), //java.lang.Long
+    "Array" : [ //java.util.ArrayList
+      "List",
+      15.0
+    ]
+  }
+}
