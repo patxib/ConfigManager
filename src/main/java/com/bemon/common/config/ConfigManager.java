@@ -30,21 +30,19 @@ public class ConfigManager {
     private Map<String, HazelcastVault> hazelcastVaults;
 
 
-    private static final String CONFIG_VAULT = "configvault";
-
     public static void main(String[] args){
         try {
             loadConfig(args[0]);
             LOGGER.debug("Loading ConfigLoader with params: {}", args[0]);
-            MongoDBConnection mongoDBTransport = new MongoDBConnection();
-            mongoDBTransport.setProperties(System.getProperties());
-            mongoDBTransport.start();
+            MongoDBConnection mongoDBConnection = new MongoDBConnection();
+            mongoDBConnection.setProperties(System.getProperties());
+            mongoDBConnection.start();
 
-            HazelcastConnection hazelcastTransport = new HazelcastConnection();
-            hazelcastTransport.setProperties(System.getProperties());
-            hazelcastTransport.start();
+            HazelcastConnection hazelcastConnection = new HazelcastConnection();
+            hazelcastConnection.setProperties(System.getProperties());
+            hazelcastConnection.start();
 
-            ConfigManager configManager = new ConfigManager(mongoDBTransport, hazelcastTransport);
+            ConfigManager configManager = new ConfigManager(mongoDBConnection, hazelcastConnection);
             configManager.start();
 
             LOGGER.debug("Config loaded");
@@ -71,7 +69,7 @@ public class ConfigManager {
 
     private void load(){
         mongoDBVault = new MongoDBVault();
-        mongoDBVault.load(mongoDBConnection, null, System.getProperty(CONFIG_VAULT));
+        mongoDBVault.load(mongoDBConnection, null, System.getProperty(Tools.CONFIG_VAULT));
         hazelcastVaults = new ConcurrentHashMap<>();
     }
 

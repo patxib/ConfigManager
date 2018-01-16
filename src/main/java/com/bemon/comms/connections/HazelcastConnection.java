@@ -2,6 +2,8 @@ package com.bemon.comms.connections;
 
 
 import com.hazelcast.config.Config;
+import com.hazelcast.config.JoinConfig;
+import com.hazelcast.config.NetworkConfig;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
 import org.slf4j.Logger;
@@ -26,6 +28,17 @@ public class HazelcastConnection implements IConnection<HazelcastInstance> {
     @Override
     public void start(){
         Config cfg = new Config();
+
+        NetworkConfig networkConfig = cfg.getNetworkConfig();
+
+
+        JoinConfig joinConfig = networkConfig.getJoin();
+        joinConfig.getTcpIpConfig().setEnabled(false);
+        joinConfig.getAwsConfig().setEnabled(false);
+        joinConfig.getMulticastConfig().setEnabled(true);
+        joinConfig.getMulticastConfig().setMulticastTimeoutSeconds(2);
+        joinConfig.getMulticastConfig().setMulticastTimeToLive(32);
+
         connection = Hazelcast.newHazelcastInstance(cfg);
     }
 
