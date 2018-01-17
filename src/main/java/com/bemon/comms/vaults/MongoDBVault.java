@@ -8,13 +8,19 @@ import com.mongodb.Block;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.model.changestream.ChangeStreamDocument;
+import org.apache.calcite.sql.SqlBasicCall;
+import org.apache.calcite.sql.SqlKind;
+import org.apache.calcite.sql.SqlNode;
+import org.apache.calcite.sql.SqlUpdate;
+import org.apache.calcite.sql.parser.SqlParseException;
+import org.apache.calcite.sql.parser.SqlParser;
 import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.stream.Collectors;
 
 
 public class MongoDBVault<T> implements IVault<T,Document> {
@@ -98,12 +104,17 @@ public class MongoDBVault<T> implements IVault<T,Document> {
         if( parser == null) this.map.updateOne((Document)key,new Document("$set",(Document)value));
             else this.map.replaceOne(parser.parseFrom(key), parser.parseFrom(value) );
     }
-}
+
+        public void update(String predicate) {
+            update(predicate, null);
+        }
 
 
-        /*
+        public void update(String predicate, Queue<Object> valueList) {
+
         SqlNode node;
         try {
+            LOGGER.debug("Analizing Update estatement {}", predicate);
              node = SqlParser.create(predicate).parseStmt();
         }catch(SqlParseException e){
             LOGGER.error("Wrong Update statement: {}", predicate);
@@ -111,7 +122,7 @@ public class MongoDBVault<T> implements IVault<T,Document> {
         }
             if (node.getKind().equals(SqlKind.UPDATE)){
                 SqlUpdate update = (SqlUpdate)node;
-                if(!update.getTargetTable().toString().equals(vaultName)) throw new RuntimeException("Wrong Vault");
+                if(!update.getTargetTable().toString().equals(vaultName.toUpperCase())) throw new RuntimeException("Wrong Vault. Found "+update.getTargetTable()+". Expected "+vaultName);
                 List columns = update.getTargetColumnList()
                         .getList()
                         .stream()
@@ -125,12 +136,16 @@ public class MongoDBVault<T> implements IVault<T,Document> {
 
 
                 Document updateOperatorsDocument = new Document();
-                for(int i=0; i<columns.size();i++) updateOperatorsDocument.append((String)columns.get(i),values.get(i));
+                for(int i=0; i<columns.size();i++) updateOperatorsDocument.append((String)columns.get(i),(!values.get(i).equals("?")?values.get(i):valueList.poll()));
                 Document updateDocument = new Document().append("$set", updateOperatorsDocument);
 
+
                 Map condition =  parseCondition((SqlBasicCall)update.getCondition(), new HashMap());
+                LOGGER.debug("Conditions: " + condition);
                 Document conditionDocument = new Document();
-                condition.entrySet().stream().forEach(p->conditionDocument.append((String)p,condition.get(p)));
+
+                condition.keySet().stream().forEach(p->conditionDocument.append(p.toString() ,
+                        (!condition.get(p).equals("?")?condition.get(p):valueList.poll())));
 
                 this.map.updateOne(conditionDocument,updateDocument);
 
@@ -140,7 +155,7 @@ public class MongoDBVault<T> implements IVault<T,Document> {
     }
     private static Map<String,String> parseCondition(SqlBasicCall call, Map map){
         if(call.getOperator().kind.equals(SqlKind.EQUALS)){
-            map.put(call.getOperands()[0].toString(), call.getOperands()[1].toString());
+            map.put(call.getOperands()[0].toString().toLowerCase(), call.getOperands()[1].toString().toLowerCase());
         }else{
             if(call.getOperator().kind.equals(SqlKind.AND)){
                 call.getOperandList().stream().forEach(p->parseCondition((SqlBasicCall)p,map));
@@ -153,4 +168,3 @@ public class MongoDBVault<T> implements IVault<T,Document> {
     }
 
 }
-*/

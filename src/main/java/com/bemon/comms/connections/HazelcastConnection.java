@@ -29,6 +29,8 @@ public class HazelcastConnection implements IConnection<HazelcastInstance> {
     public void start(){
         Config cfg = new Config();
 
+        if (System.getProperty("hazelcast.member_name")!= null) cfg.setInstanceName(System.getProperty("hazelcast.member_name"));
+
         NetworkConfig networkConfig = cfg.getNetworkConfig();
 
 
@@ -53,5 +55,7 @@ public class HazelcastConnection implements IConnection<HazelcastInstance> {
     public HazelcastInstance getConnection(){
         return connection;
     }
+
+    public String getName(){return connection.getName();}
 
 }

@@ -3,7 +3,7 @@
     <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
     <option name="MAIN_CLASS_NAME" value="com.bemon.common.config.ConfigManager" />
     <option name="VM_PARAMETERS" value="" />
-    <option name="PROGRAM_PARAMETERS" value="config.properties" />
+    <option name="PROGRAM_PARAMETERS" value="config_loader.properties" />
     <option name="WORKING_DIRECTORY" value="file://$MODULE_DIR$/../../src/main/resources/config" />
     <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
     <option name="ALTERNATIVE_JRE_PATH" />

@@ -1,9 +1,7 @@
 package com.bemon.common.config;
 
-import com.bemon.common.Tools;
 import com.bemon.comms.connections.HazelcastConnection;
 import com.bemon.comms.vaults.HazelcastVault;
-import sun.security.krb5.Config;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -15,17 +13,42 @@ public class ConfigClient {
     public static void main(String[] args) {
 
         ConfigClient configClient= new ConfigClient();
+        configClient.loadVault("com.bemon.common.config.data");
 
 
-        Runnable run = new Runnable() {
-            @Override
-            public void run() {
-                while (true){
+        Runnable read = () -> {
+            while (true){
+                System.out.println("Valor: " + configClient.get("com.bemon.common.config.data", "clave"));
+                try {
+                    Thread.sleep(2000);
+                }catch(InterruptedException e){
+                    break;
+                }
 
+            }
+        };
+
+        new Thread(read).start();
+
+        Runnable write = () -> {
+            String value = "flip";
+            while (true){
+                configClient.put("com.bemon.common.config.data", "clave", value);
+                try {
+                    Thread.sleep(4000);
+                }catch(InterruptedException e){
+                    break;
+                }
+
+                if (value.equals("flip")) {
+                    value = "flop";
+                }else{
+                    value="flip";
                 }
             }
         };
 
+        new Thread(write).start();
     }
 
     public ConfigClient(){
@@ -50,8 +73,12 @@ public class ConfigClient {
         hazelcastVaults.get(vault).load(hazelcastConnection, null, vault);
     }
 
-    public Object getProperty(String vault, String key){
-        return hazelcastVaults.get(key);
+    public Object get(String vault, String key){
+        return hazelcastVaults.get(vault).get(key);
+    }
+
+    public void put (String vault, String key, Object value){
+        hazelcastVaults.get(vault).put(key, value);
     }
 
 }
