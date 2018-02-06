@@ -1,0 +1,60 @@
+[11/12/2017, 10:35:23] Daniel Abdian SCH: ‎Messages to this chat and calls are now secured with end-to-end encryption.
+[11/12/2017, 10:35:23] Daniel Abdian SCH: Is it possible to work from home today? been experiencing nausea from medicine , trying to shake off and come in but if still experiencing in next 20-30 min wanted to login from home rather than make move in today , willl return to office tomorrow
+[14/12/2017, 13:27:24] Andy Benito: Hey
+[14/12/2017, 13:27:48] Andy Benito: If you haven’t sent the docs to Stuart yet, don’t
+[14/12/2017, 13:30:59] Daniel Abdian SCH: Ok, not sent yet, but FYI after you said send it and give him the full one I showed him on my screen but very quick.
+[14/12/2017, 13:31:22] Andy Benito: Ok, leave it there
+[17/12/2017, 22:42:10] Andy Benito: Update on the checkout?
+[17/12/2017, 22:44:18] Daniel Abdian SCH: We are seeing prices , trades are unknown but it seems its to do with trading with ems, we are just checking , are u in the group chat, I added u
+[17/12/2017, 22:45:34] Andy Benito: Not logged in at the moment
+[17/12/2017, 22:45:41] Daniel Abdian SCH: Ok
+[17/12/2017, 22:45:49] Andy Benito: What is the issue with EMS?
+[17/12/2017, 22:45:53] Daniel Abdian SCH: Will let u know once we go past these
+[17/12/2017, 22:46:01] Daniel Abdian SCH: We are looking into it still
+[17/12/2017, 22:46:39] Andy Benito: Ok
+[18/12/2017, 02:19:02] Daniel Abdian SCH: All good, only open that we have is some slowness on Chris Baxter air user when he withdraw forward point from D3, happens random, we will have to review that tomorrow as per discussion with Manuel , jira raised , it’s ok for Ciaran user.
+[18/12/2017, 02:22:55] Daniel Abdian SCH: That’s all we saw today , we have bank reject missing for sentinel tof , Miguel said they revive all events except the bank reject and mti several clicks as the issue that was there for 360t on other parts l, Jira raised, Manuel will review tomorrow
+[21/12/2017, 17:54:26] Daniel Abdian SCH: We have missing trades, trying to do reconciliation now
+[21/12/2017, 17:55:07] Andy Benito: Do we know why?
+[21/12/2017, 18:06:58] Daniel Abdian SCH: CST are getting the integration and murex team to check the question
+[21/12/2017, 18:07:05] Andy Benito: Yep
+[21/12/2017, 18:07:14] Daniel Abdian SCH: We just spoke to them
+[21/12/2017, 18:07:24] Andy Benito: 👍🏻
+[21/12/2017, 18:07:25] Daniel Abdian SCH: We have incident open so they can do the call outs
+[21/12/2017, 18:07:38] Andy Benito: Pls keep me posted at every step
+[21/12/2017, 18:07:49] Daniel Abdian SCH: Will do
+[21/12/2017, 18:08:05] Andy Benito: Thx
+[21/12/2017, 18:24:52] Daniel Abdian SCH: We just did a reconcile on our part 249
+[21/12/2017, 18:25:19] Daniel Abdian SCH: We are sending it to the folks to see if possible for them to replay or Chris might have to book manually
+[21/12/2017, 19:14:16] Andy Benito: Update?
+[21/12/2017, 19:14:53] Daniel Abdian SCH: Just waiting response on my  chaser on the replay
+[21/12/2017, 19:15:19] Daniel Abdian SCH: We gave trade details so the back office can take care of the TOD ones
+[21/12/2017, 19:19:09] Daniel Abdian SCH: Trades now coming I
+[21/12/2017, 19:19:10] Daniel Abdian SCH: In
+[21/12/2017, 19:19:18] Daniel Abdian SCH: Once done we rec again
+[21/12/2017, 19:19:38] Andy Benito: Ok
+[21/12/2017, 19:20:02] Daniel Abdian SCH: Chris is seeing them
+[21/12/2017, 19:20:12] Andy Benito: Brilliant
+[21/12/2017, 19:20:46] Daniel Abdian SCH: Once Complete I asked Ciaran for reconciliation
+[21/12/2017, 19:30:57] Daniel Abdian SCH: Reconciliation complete
+[21/12/2017, 19:31:08] Daniel Abdian SCH: All there from our rec
+[21/12/2017, 19:31:09] Andy Benito: Ok?
+[21/12/2017, 19:31:12] Andy Benito: Grand
+[21/12/2017, 20:05:42] Andy Benito: About to take off
+[21/12/2017, 20:05:58] Andy Benito: everything calm now?
+[21/12/2017, 20:07:14] Daniel Abdian SCH: Yep since the replay all calm, we will have to do the load test tomorrow, I am Putting in handover, have a good flight
+[21/12/2017, 20:07:26] Andy Benito: Ok
+[21/12/2017, 20:07:36] Andy Benito: Enjoy Xmas
+[25/12/2017, 13:53:32] Daniel Abdian SCH: FELIZ NAVIDAD amigo mio, merry Christmas to all with love from all
+[01/01/2018, 15:49:06] Daniel Abdian SCH: Happy new year to you and all the family, best wishes 2018
+[01/01/2018, 21:37:09] Andy Benito: Happy new year Daniel. Enjoy the rest of your holidays!
+[19/01/2018, 08:39:57] Daniel Abdian SCH: Hi Andres, just called you and left voicemail, I had temperature  overnight, still unwell, will be out today, if anything changes for the worse over weekend to affect my return Monday I will update you.
+[19/01/2018, 09:21:39] Andy Benito: Out of battery. Manuel had already told me. Take care of yourself. Everything under control around here. Get better.
+[22/01/2018, 17:43:38] Daniel Abdian SCH: I’m good to return tomorrow. Thanks , see u tomorrow.
+[23/01/2018, 08:46:17] Andy Benito: Didn’t see this yesterday
+[23/01/2018, 08:46:35] Andy Benito: Good to hear, see you in a bit
+[23/01/2018, 08:53:17] Daniel Abdian SCH: A lot of travel delays due to road closures and Charing Cross station,  will be a bit late
+[29/01/2018, 08:31:13] Daniel Abdian SCH: Hi, I’m Feeling a lot better, having movements of stomach rapidly today , that I believe is pillcam leaving the body or effects of last Friday procedure, will be back tomorrow morning to office.
+[30/01/2018, 08:00:05] Daniel Abdian SCH: Morning , making move to work, might be 20 min late
+[31/01/2018, 08:55:20] Daniel Abdian SCH: Running slightly late , stomach reaction to pain killer slow, will be in by 10am
+[02/02/2018, 08:17:15] Daniel Abdian SCH: Going to make call to gp office to see for walk-in as discussed yesterday for the pain, will be slightly late this morning
