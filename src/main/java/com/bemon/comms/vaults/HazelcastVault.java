@@ -47,12 +47,14 @@ public class HazelcastVault<T,K> implements IVault<T,K> {
         map.addEntryListener(new EntryListener() {
             @Override
             public void entryAdded(EntryEvent event) {
-                listeners.forEach(p ->
-                        p.onEvent("Add",
-                                vaultName,
-                                (String)event.getKey(),
-                                null,
-                                parser == null ? event.getValue() : parser.parseFrom(event.getValue())));
+                if(!event.getMember().localMember()) {
+                    listeners.forEach(p ->
+                            p.onEvent("Add",
+                                    vaultName,
+                                    (String) event.getKey(),
+                                    null,
+                                    parser == null ? event.getValue() : parser.parseFrom(event.getValue())));
+                }
             }
 
             @Override
@@ -62,21 +64,25 @@ public class HazelcastVault<T,K> implements IVault<T,K> {
 
             @Override
             public void entryRemoved(EntryEvent event) {
-                listeners.forEach(p ->
-                        p.onEvent("Remove",
-                        vaultName,
-                        (String)event.getKey(), parser == null ? event.getOldValue() : parser.parseFrom(event.getOldValue()),
-                        null));
+                if(!event.getMember().localMember()) {
+                    listeners.forEach(p ->
+                            p.onEvent("Remove",
+                                    vaultName,
+                                    (String) event.getKey(), parser == null ? event.getOldValue() : parser.parseFrom(event.getOldValue()),
+                                    null));
+                }
             }
 
             @Override
             public void entryUpdated(EntryEvent event) {
-                listeners.forEach(p ->
-                        p.onEvent("Update",
-                                vaultName,
-                                (String)event.getKey(),
-                                parser == null ? event.getOldValue() : parser.parseFrom(event.getOldValue()),
-                                parser == null ? event.getValue() : parser.parseFrom(event.getValue())));
+                if(!event.getMember().localMember()) {
+                    listeners.forEach(p ->
+                            p.onEvent("Update",
+                                    vaultName,
+                                    (String) event.getKey(),
+                                    parser == null ? event.getOldValue() : parser.parseFrom(event.getOldValue()),
+                                    parser == null ? event.getValue() : parser.parseFrom(event.getValue())));
+                }
             }
 
             @Override
@@ -88,7 +94,7 @@ public class HazelcastVault<T,K> implements IVault<T,K> {
             public void mapEvicted(MapEvent event) {
                 throw new RuntimeException("NOT IMPLEMENTED");
             }
-        },false);
+        });
     }
 
     @Override
